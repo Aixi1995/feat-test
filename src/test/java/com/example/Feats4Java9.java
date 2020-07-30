@@ -3,6 +3,7 @@ package com.example;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author wang.zhiqiang
@@ -41,6 +42,20 @@ public class Feats4Java9 {
     @Test
     public void testProcess() {
 
+    }
+
+    /**
+     * 测试 java9 stream新的方法
+     */
+    @Test
+    public void testStream() {
+        // taleWhile 从stream获取元素，直到不满足条件为止，返回子集
+        Stream.of("a","b","c", "", "d","e","f","g","h").takeWhile(s -> !s.isEmpty()).forEach(System.out::println); // return a b c
+        // taleWhile 从stream删除元素，直到不满足条件为止，返回子集
+        Stream.of("a","b","c", "", "d","e","f","g","h").dropWhile(s -> !s.isEmpty()).forEach(System.out::println); // return d e f g h
+        Stream.iterate(1, i -> i+1).limit(10).forEach(System.out::println);
+        Stream.iterate(1, i -> i < 6, i -> i + 2).forEach(System.out::println);
+        System.out.println(Stream.ofNullable(null).count());
     }
 
 
