@@ -1,10 +1,13 @@
 package com.example;
 
 import com.example.entity.UserInfo;
+import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptEngineManager;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -12,6 +15,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -22,7 +27,7 @@ import java.util.stream.Stream;
  * @version 1.0
  * @date 2020/7/29 13:17
  */
-public class Feats4JDK8 {
+public class Feats4Java8 {
 
     /**
      * 测试 java8 引入的 Optional <br>
@@ -104,6 +109,74 @@ public class Feats4JDK8 {
         Assert.assertEquals(200, sumOfAllAge);
     }
 
+    /**
+     * 测试 CompletableFuture
+     */
+    @Test
+    public void testCompletableFuture() throws ExecutionException, InterruptedException {
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+            try {
+                System.out.println("thread name of supplyAsync is : " + Thread.currentThread().getName());
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("exception occur while supplyAsync");
+                e.printStackTrace();
+            }
+            return "test CompletableFuture";
+        }).handleAsync((t,e) ->{
+            try {
+                System.out.println("thread name of handle is : " + Thread.currentThread().getName());
+                Thread.sleep(1000);
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+            if (t.equals("test CompletableFuture")) {
+                t += " and some other api";
+            }
+            if (e != null) {
+                System.out.println("exception occur while handle");
+            }
+            return t;
+        });
+        System.out.println(future.get());
+    }
+
+    @Test
+    public void testCompletableFuture2Concurr() throws ExecutionException, InterruptedException {
+        long start = System.currentTimeMillis();
+        CompletableFuture<String> getStr = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(1000);
+                return "1";
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return "0";
+        });
+        CompletableFuture<Integer> getInt = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(1000);
+                return 1;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return 0;
+        });
+        CompletableFuture<Float> getDouble = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(1000);
+                return 1.0f;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return 0f;
+        });
+        System.out.println(getInt.get());//get是阻塞的
+        System.out.println(getDouble.get());
+        System.out.println(getStr.get());
+        long end = System.currentTimeMillis();
+        System.out.println("耗时：" + (end - start));
+    }
     /**
      * 测试 LocalDate，在计算日期差的时候特别有用
      */
