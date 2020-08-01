@@ -230,6 +230,7 @@ public class Feats4Java8 {
         System.out.println(generateName("wang_zhi_qiang", NAME_TO_CAMEL));
         System.out.println(generateName("wangZhiQiang", NAME_TO_UNDERSCORE));
         System.out.println(generateName("wangZhiQiang", String::toUpperCase));
+        System.out.println(generateName("wangZhiQiang", String::toLowerCase));
     }
 
     Function<String, String> NAME_TO_CAMEL = name -> {
