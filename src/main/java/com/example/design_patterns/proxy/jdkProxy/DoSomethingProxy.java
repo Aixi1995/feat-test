@@ -8,11 +8,11 @@ import java.lang.reflect.Method;
  * @version 1.0
  * @date 2020/8/4 10:06
  */
-public class ProxyDoSomething implements InvocationHandler {
+public class DoSomethingProxy implements InvocationHandler {
 
     private Object object;
 
-    public ProxyDoSomething(Object object) {
+    public DoSomethingProxy(Object object) {
         this.object = object;
     }
 

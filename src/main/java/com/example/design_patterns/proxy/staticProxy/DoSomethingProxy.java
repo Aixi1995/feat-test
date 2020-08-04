@@ -7,11 +7,11 @@ import com.example.design_patterns.proxy.IDoSomething;
  * @version 1.0
  * @date 2020/8/4 9:49
  */
-public class ProxyDoSomething implements IDoSomething {
+public class DoSomethingProxy implements IDoSomething {
 
     IDoSomething doSomething;
 
-    public ProxyDoSomething(IDoSomething doSomething) {
+    public DoSomethingProxy(IDoSomething doSomething) {
         super();
         this.doSomething = doSomething;
     }

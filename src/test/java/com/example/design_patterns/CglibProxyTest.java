@@ -1,7 +1,7 @@
 package com.example.design_patterns;
 
 import com.example.design_patterns.proxy.DoSomethingC;
-import com.example.design_patterns.proxy.cglibProxy.ProxyDoSomething;
+import com.example.design_patterns.proxy.cglibProxy.DoSomethingProxy;
 import org.junit.Test;
 
 /**
@@ -16,7 +16,7 @@ public class CglibProxyTest {
      */
     @Test
     public void testCglibTest() {
-        ProxyDoSomething proxyDoSomething = new ProxyDoSomething();
+        DoSomethingProxy proxyDoSomething = new DoSomethingProxy();
         DoSomethingC doSomethingC = (DoSomethingC) proxyDoSomething.getProxy(DoSomethingC.class);
         doSomethingC.doSomething();
     }

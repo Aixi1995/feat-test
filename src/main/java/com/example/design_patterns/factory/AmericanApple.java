@@ -5,7 +5,7 @@ package com.example.design_patterns.factory;
  * @version 1.0
  * @date 2020/8/4 11:08
  */
-public class AmericanApple extends Apple{
+public class AmericanApple extends AbstractApple{
     @Override
     public void get() {
         System.out.println("american apple...");

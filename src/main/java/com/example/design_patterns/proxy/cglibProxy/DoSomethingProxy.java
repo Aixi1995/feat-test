@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  * @version 1.0
  * @date 2020/8/4 10:29
  */
-public class ProxyDoSomething implements MethodInterceptor {
+public class DoSomethingProxy implements MethodInterceptor {
 
     private Enhancer enhancer = new Enhancer();
 

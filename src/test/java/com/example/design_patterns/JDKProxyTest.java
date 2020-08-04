@@ -1,7 +1,7 @@
 package com.example.design_patterns;
 
 import com.example.design_patterns.proxy.IDoSomething;
-import com.example.design_patterns.proxy.jdkProxy.ProxyDoSomething;
+import com.example.design_patterns.proxy.jdkProxy.DoSomethingProxy;
 import com.example.design_patterns.proxy.DoSomethingA;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ public class JDKProxyTest {
         IDoSomething doSomethingA = new DoSomethingA();
         ClassLoader loader = doSomethingA.getClass().getClassLoader();
         Class[] interfaces = doSomethingA.getClass().getInterfaces();
-        InvocationHandler handler = new ProxyDoSomething(doSomethingA);
+        InvocationHandler handler = new DoSomethingProxy(doSomethingA);
         IDoSomething doSomethingProxy = (IDoSomething) Proxy.newProxyInstance(loader, interfaces, handler);
         doSomethingProxy.doSomething();
     }

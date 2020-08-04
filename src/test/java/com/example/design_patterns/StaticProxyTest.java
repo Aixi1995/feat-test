@@ -2,7 +2,7 @@ package com.example.design_patterns;
 
 import com.example.design_patterns.proxy.DoSomethingA;
 import com.example.design_patterns.proxy.DoSomethingB;
-import com.example.design_patterns.proxy.staticProxy.ProxyDoSomething;
+import com.example.design_patterns.proxy.staticProxy.DoSomethingProxy;
 import org.junit.Test;
 
 /**
@@ -14,9 +14,9 @@ public class StaticProxyTest {
 
     @Test
     public void testStaticProxy() {
-        ProxyDoSomething doSomethingA = new ProxyDoSomething(new DoSomethingA());
+        DoSomethingProxy doSomethingA = new DoSomethingProxy(new DoSomethingA());
         doSomethingA.doSomething();
-        ProxyDoSomething doSomethingB = new ProxyDoSomething(new DoSomethingB());
+        DoSomethingProxy doSomethingB = new DoSomethingProxy(new DoSomethingB());
         doSomethingB.doSomething();
     }
 }
