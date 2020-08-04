@@ -1,4 +1,4 @@
-package com.example.singleton;
+package com.example.design_patterns.singleton;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
-package com.example.designPattern;
+package com.example.design_patterns;
 
-import com.example.singleton.Singleton;
+import com.example.design_patterns.singleton.Singleton;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutorService;

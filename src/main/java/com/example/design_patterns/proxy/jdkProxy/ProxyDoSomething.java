@@ -1,4 +1,4 @@
-package com.example.proxy.jdkProxy;
+package com.example.design_patterns.proxy.jdkProxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

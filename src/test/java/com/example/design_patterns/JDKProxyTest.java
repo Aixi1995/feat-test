@@ -1,8 +1,8 @@
-package com.example.designPattern;
+package com.example.design_patterns;
 
-import com.example.proxy.IDoSomething;
-import com.example.proxy.jdkProxy.ProxyDoSomething;
-import com.example.proxy.DoSomethingA;
+import com.example.design_patterns.proxy.IDoSomething;
+import com.example.design_patterns.proxy.jdkProxy.ProxyDoSomething;
+import com.example.design_patterns.proxy.DoSomethingA;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationHandler;

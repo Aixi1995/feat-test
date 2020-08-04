@@ -1,8 +1,7 @@
-package com.example.designPattern;
+package com.example.design_patterns;
 
-import com.example.proxy.DoSomethingA;
-import com.example.proxy.DoSomethingC;
-import com.example.proxy.cglibProxy.ProxyDoSomething;
+import com.example.design_patterns.proxy.DoSomethingC;
+import com.example.design_patterns.proxy.cglibProxy.ProxyDoSomething;
 import org.junit.Test;
 
 /**

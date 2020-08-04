@@ -1,4 +1,4 @@
-package com.example.proxy;
+package com.example.design_patterns.proxy;
 
 /**
  * @author wang.zhiqiang

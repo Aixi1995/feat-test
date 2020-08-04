@@ -1,12 +1,8 @@
-package com.example;
+package com.example.jdk;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
 /**

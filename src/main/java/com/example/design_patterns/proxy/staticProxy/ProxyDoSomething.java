@@ -1,6 +1,6 @@
-package com.example.proxy.staticProxy;
+package com.example.design_patterns.proxy.staticProxy;
 
-import com.example.proxy.IDoSomething;
+import com.example.design_patterns.proxy.IDoSomething;
 
 /**
  * @author wang.zhiqiang
