@@ -2,7 +2,7 @@ package com.example.designPattern;
 
 import com.example.proxy.DoSomethingA;
 import com.example.proxy.DoSomethingB;
-import com.example.proxy.ProxyDoSomething;
+import com.example.proxy.staticProxy.ProxyDoSomething;
 import org.junit.Test;
 
 /**

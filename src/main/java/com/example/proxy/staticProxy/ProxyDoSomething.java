@@ -1,4 +1,6 @@
-package com.example.proxy;
+package com.example.proxy.staticProxy;
+
+import com.example.proxy.IDoSomething;
 
 /**
  * @author wang.zhiqiang
