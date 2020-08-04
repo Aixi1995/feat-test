@@ -1,4 +1,4 @@
-package com.example.strategy;
+package com.example.design_patterns.strategy;
 
 /**
  * @author wang.zhiqiang

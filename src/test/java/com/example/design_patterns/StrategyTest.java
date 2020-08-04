@@ -1,9 +1,9 @@
 package com.example.design_patterns;
 
-import com.example.strategy.AliPayStrategy;
-import com.example.strategy.PayStrategyContainer;
-import com.example.strategy.UnionPayStrategy;
-import com.example.strategy.WeChatPayStrategy;
+import com.example.design_patterns.strategy.AliPayStrategy;
+import com.example.design_patterns.strategy.PayStrategyContainer;
+import com.example.design_patterns.strategy.UnionPayStrategy;
+import com.example.design_patterns.strategy.WeChatPayStrategy;
 import org.junit.Test;
 
 /**
