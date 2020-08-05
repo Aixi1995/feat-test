@@ -5,14 +5,15 @@ import org.elasticsearch.action.admin.indices.alias.IndicesAliasesRequest.*;
 import org.elasticsearch.action.admin.indices.alias.get.GetAliasesRequest;
 import org.elasticsearch.action.admin.indices.refresh.RefreshRequest;
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsRequest;
+import org.elasticsearch.action.admin.indices.settings.put.UpdateSettingsRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.DeleteAliasRequest;
-import org.elasticsearch.client.indices.GetIndexRequest;
-import org.elasticsearch.client.indices.GetMappingsRequest;
+import org.elasticsearch.client.indices.*;
 import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.xcontent.XContentType;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -43,6 +44,27 @@ public class IndexService {
     }
 
     /**
+     * update index.num_of_replicas
+     *
+     * @param numOfReplicas numOfReplicas
+     * @param indices       name
+     * @return update successful?
+     */
+    public boolean updateNumOfReplicas(int numOfReplicas, String... indices) {
+        UpdateSettingsRequest request = new UpdateSettingsRequest(indices);
+        var settings = new HashMap<String, Object>();
+        settings.put("index.number_of_replicas", numOfReplicas);
+        request.settings(settings);
+        try {
+            var response = client.indices().putSettings(request, RequestOptions.DEFAULT);
+            return response.isAcknowledged();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * get index mappings
      *
      * @param index index name
@@ -59,10 +81,76 @@ public class IndexService {
         return null;
     }
 
+    /**
+     * put mappings to indices
+     *
+     * @param indices names
+     * @return put successful?
+     */
+    public boolean putMappings(String... indices) {
+        PutMappingRequest request = new PutMappingRequest(indices);
+        String mappings = """
+                {
+                    "properties":{
+                        "addr": {
+                            "type":"text"
+                        }
+                    }
+                }
+                """;
+        request.source(mappings, XContentType.JSON);
+        try {
+            var response = client.indices().putMapping(request, RequestOptions.DEFAULT);
+            return response.isAcknowledged();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean existIndices(String... index) {
         var request = new GetIndexRequest(index);
         try {
             return client.indices().exists(request, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean createIndices(String index) {
+        try {
+            CreateIndexRequest request = new CreateIndexRequest(index);
+            String wholeSource = """
+                {
+                    "settings": {
+                        "number_of_shards":1,
+                        "number_of_replicas":0
+                    },
+                    "mappings":{
+                        "properties":{
+                            "age": {
+                                "type": "integer"
+                            },
+                            "email": {
+                                "type": "keyword"
+                            },
+                            "itemId": {
+                                "type": "integer"
+                            },
+                            "name": {
+                                "type": "text"
+                            },
+                            "score": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+                """;
+            request.source(wholeSource, XContentType.JSON);
+            var response = client.indices().create(request, RequestOptions.DEFAULT);
+            return response.isAcknowledged();
         } catch (IOException e) {
             e.printStackTrace();
         }

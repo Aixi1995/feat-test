@@ -49,4 +49,13 @@ public class IndexServiceTest {
     public void testRefreshIndex() {
         indexService.refreshIndices(index);
     }
+
+    @Test
+    public void testCreateIndex() {
+        var index = "my_index_20200805";
+        Assert.assertTrue(indexService.createIndices(index));//创建索引
+        Assert.assertTrue(indexService.putMappings(index));//更新mappings
+        Assert.assertTrue(indexService.updateNumOfReplicas( 1, index));
+        Assert.assertTrue(indexService.addAlias(index, "my_alias"));
+    }
 }
