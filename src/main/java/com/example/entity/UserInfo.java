@@ -13,11 +13,12 @@ public class UserInfo {
     public UserInfo() {
     }
 
-    public UserInfo(Long id, String name, String email, Integer age) {
+    public UserInfo(Long id, String name, String email, Integer age, Integer score) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
+        this.score = score;
     }
 
     private Long id;
@@ -27,5 +28,7 @@ public class UserInfo {
     private String email;
 
     private Integer age;
+
+    private Integer score;
 
 }

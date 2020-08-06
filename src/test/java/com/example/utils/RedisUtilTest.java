@@ -45,9 +45,9 @@ class RedisUtilTest {
         Assert.assertEquals("wangzhiqiang", redisUtil.hget("user:1", "name"));
         Assert.assertEquals(25, redisUtil.hget("user:1", "age"));
 
-        var user = new UserInfo(2L, "wang2", "2@email", 24);
+        //var user = new UserInfo(2L, "wang2", "2@email", 24);
         //redisUtil.set(K_USER_PREFIX + user.getId(), user);
-        var _user = redisUtil.get(K_USER_PREFIX + user.getId());
-        System.out.println(_user.toString());
+        /*var _user = redisUtil.get(K_USER_PREFIX + user.getId());
+        System.out.println(_user.toString());*/
     }
 }
