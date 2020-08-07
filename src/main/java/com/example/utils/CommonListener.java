@@ -17,11 +17,10 @@ import java.util.List;
 public class CommonListener<T> extends AnalysisEventListener<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(CommonListener.class);
-    List<T> tList = null;
+    List<T> tList = new ArrayList<>();
 
     @Override
     public void invoke(T data, AnalysisContext context) {
-        tList = new ArrayList<>();
         tList.add(data);
     }
 
