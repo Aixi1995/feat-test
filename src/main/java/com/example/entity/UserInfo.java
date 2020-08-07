@@ -13,6 +13,13 @@ public class UserInfo {
     public UserInfo() {
     }
 
+    public UserInfo(Long id, String name, String email, Integer age) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.age = age;
+    }
+
     public UserInfo(Long id, String name, String email, Integer age, Integer score) {
         this.id = id;
         this.name = name;
