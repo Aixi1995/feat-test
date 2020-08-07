@@ -13,22 +13,22 @@ public class UserInfo {
     public UserInfo() {
     }
 
-    public UserInfo(Long id, String name, String email, Integer age) {
-        this.id = id;
+    public UserInfo(Long itemId, String name, String email, Integer age) {
+        this.itemId = itemId;
         this.name = name;
         this.email = email;
         this.age = age;
     }
 
-    public UserInfo(Long id, String name, String email, Integer age, Integer score) {
-        this.id = id;
+    public UserInfo(Long itemId, String name, String email, Integer age, Integer score) {
+        this.itemId = itemId;
         this.name = name;
         this.email = email;
         this.age = age;
         this.score = score;
     }
 
-    private Long id;
+    private Long itemId;
 
     private String name;
 
@@ -37,5 +37,7 @@ public class UserInfo {
     private Integer age;
 
     private Integer score;
+
+    private String addr;
 
 }

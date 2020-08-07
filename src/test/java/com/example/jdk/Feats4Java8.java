@@ -1,7 +1,6 @@
 package com.example.jdk;
 
 import com.example.entity.UserInfo;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
@@ -43,11 +42,11 @@ public class Feats4Java8 {
         var emptyStr = Optional.ofNullable(null).orElse("");
         Assert.assertEquals("", emptyStr);
         var user = new UserInfo();
-        user.setId(1L);
+        user.setItemId(1L);
         user.setName("aixi");
         user.setAge(25);
         Optional.ofNullable(user).ifPresent(u -> {
-            Assert.assertEquals(Optional.of(1L).get(), user.getId());
+            Assert.assertEquals(Optional.of(1L).get(), user.getItemId());
             Assert.assertEquals("aixi", user.getName());
             Assert.assertEquals(Optional.of(25).get(), user.getAge());
         });
