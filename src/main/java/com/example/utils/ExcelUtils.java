@@ -1,12 +1,12 @@
 package com.example.utils;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.read.builder.ExcelReaderBuilder;
-
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author wang.zhiqiang
@@ -28,5 +28,19 @@ public class ExcelUtils {
         CommonListener<T> commonListener = new CommonListener<>();
         EasyExcel.read(fileName, clazz, commonListener).sheet().doRead();
         return commonListener.tList;
+    }
+
+    /**
+     * 将list写入excel
+     *
+     * @param filePath excel
+     * @param clazz Java对象类型
+     * @param tList 待写入list
+     * @param <T> Java对象类型
+     * @throws FileNotFoundException 文件不存在则抛出异常
+     */
+    public static <T> void write(String filePath, Class<T> clazz, List<T> tList) throws FileNotFoundException {
+        OutputStream out = new FileOutputStream(filePath);
+        EasyExcel.write(out, clazz).sheet(LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)).doWrite(tList);
     }
 }
