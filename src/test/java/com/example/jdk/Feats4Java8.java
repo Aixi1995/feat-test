@@ -66,7 +66,10 @@ public class Feats4Java8 {
     @Test
     public void testStream() {
         List<String> list = new ArrayList<>();
-        list.add("1");list.add("2");list.add("3");list.add("4");
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
         list.stream().map(s -> s += " ").forEach(System.out::printf);//map可以遍历原stream的元素操作
         System.out.println();
         list.add("1");
@@ -95,7 +98,10 @@ public class Feats4Java8 {
         var user3 = new UserInfo(1L, "wang1", "wang1@163.com", 26);
         var user4 = new UserInfo(1L, "wang1", "wang1@163.com", 23);
         var list = new ArrayList<UserInfo>();
-        list.add(user1);list.add(user2);list.add(user3);list.add(user4);
+        list.add(user1);
+        list.add(user2);
+        list.add(user3);
+        list.add(user4);
         var sumOfAge = list.stream().mapToInt(UserInfo::getAge).sum();
         Assert.assertEquals(100, sumOfAge);
         var user6 = new UserInfo(1L, "wang1", "wang1@163.com", 27);
@@ -103,7 +109,10 @@ public class Feats4Java8 {
         var user8 = new UserInfo(1L, "wang1", "wang1@163.com", 26);
         var user9 = new UserInfo(1L, "wang1", "wang1@163.com", 23);
         var _list = new ArrayList<UserInfo>();
-        list.add(user6);list.add(user7);list.add(user8);list.add(user9);
+        list.add(user6);
+        list.add(user7);
+        list.add(user8);
+        list.add(user9);
         var sumOfAllAge = Stream.of(list, _list).flatMap(Collection::stream).mapToInt(UserInfo::getAge).sum();
         Assert.assertEquals(200, sumOfAllAge);
     }
@@ -122,7 +131,7 @@ public class Feats4Java8 {
                 e.printStackTrace();
             }
             return "test CompletableFuture";
-        }).handleAsync((t,e) ->{
+        }).handleAsync((t, e) -> {
             try {
                 System.out.println("thread name of handle is : " + Thread.currentThread().getName());
                 Thread.sleep(1000);
@@ -259,4 +268,52 @@ public class Feats4Java8 {
         return f.apply(name);
     }
 
+    /**
+     * t.join()方法会阻塞当前线程，等待t执行完之后，才唤醒当前线程
+     *
+     * @throws InterruptedException
+     */
+    @Test
+    public void testThreadJoin() throws InterruptedException {
+        Thread t1 = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("t1 is " + Thread.currentThread().getName());
+        });
+        Thread t2 = new Thread(() -> {
+            System.out.println("t2 is " + Thread.currentThread().getName());
+        });
+        Thread t3 = new Thread(() -> {
+            System.out.println("t3 is " + Thread.currentThread().getName());
+        });
+        t1.start();
+        t2.start();
+        t3.start();
+        t1.join();
+        System.out.println("main is " + Thread.currentThread().getName());
+    }
+
+    private volatile int sum = 0;
+
+    @Test
+    public void testWait() throws InterruptedException {
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 50; i++) {
+                sum += i;
+            }
+        });
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 50; i++) {
+                sum += i;
+            }
+        });
+        t1.start();
+        t1.join();
+        t2.start();
+        t2.join();
+        System.out.println(sum);
+    }
 }
