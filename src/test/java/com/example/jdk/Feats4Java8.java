@@ -16,6 +16,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -296,24 +297,53 @@ public class Feats4Java8 {
         System.out.println("main is " + Thread.currentThread().getName());
     }
 
-    private volatile int sum = 0;
+    private volatile boolean flag = true;
 
     @Test
     public void testWait() throws InterruptedException {
+        var str = "我是个程序员";
+        var strs = str.split("");
+        var list = Arrays.asList(strs);
+        System.out.println(list);
         Thread t1 = new Thread(() -> {
-            for (int i = 0; i < 50; i++) {
-                sum += i;
+            try {
+                printStringA(list);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         });
         Thread t2 = new Thread(() -> {
-            for (int i = 0; i < 50; i++) {
-                sum += i;
+            try {
+                printStringB(list);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         });
         t1.start();
-        t1.join();
         t2.start();
-        t2.join();
-        System.out.println(sum);
+    }
+
+    public void printStringA(List<String> list) throws InterruptedException {
+        synchronized (list) {
+            if (flag) {
+                System.out.println(list.get(0));
+                flag = !flag;
+                list.notify();
+            } else {
+                list.wait();
+            }
+        }
+    }
+
+    public void printStringB(List<String> list) throws InterruptedException {
+        synchronized (list) {
+            if (!flag) {
+                System.out.println(list.get(0));
+                flag = !flag;
+                list.notify();
+            } else {
+                list.wait();
+            }
+        }
     }
 }
