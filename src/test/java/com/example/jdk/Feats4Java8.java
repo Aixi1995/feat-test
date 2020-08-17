@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -19,6 +20,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -298,52 +301,37 @@ public class Feats4Java8 {
     }
 
     private volatile boolean flag = true;
+    private static int index = 0;
 
     @Test
     public void testWait() throws InterruptedException {
         var str = "我是个程序员";
-        var strs = str.split("");
-        var list = Arrays.asList(strs);
-        System.out.println(list);
-        Thread t1 = new Thread(() -> {
-            try {
-                printStringA(list);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        Thread t2 = new Thread(() -> {
-            try {
-                printStringB(list);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        t1.start();
-        t2.start();
     }
 
-    public void printStringA(List<String> list) throws InterruptedException {
-        synchronized (list) {
-            if (flag) {
-                System.out.println(list.get(0));
-                flag = !flag;
-                list.notify();
-            } else {
-                list.wait();
-            }
-        }
+    public void printStringA(String str) throws InterruptedException {
     }
 
     public void printStringB(List<String> list) throws InterruptedException {
-        synchronized (list) {
-            if (!flag) {
-                System.out.println(list.get(0));
-                flag = !flag;
-                list.notify();
-            } else {
-                list.wait();
-            }
+    }
+
+    private static final Pattern pattern = Pattern.compile("(\\d+)");
+
+    @Test
+    public void testPattern() {
+        String str = "test转移, 目的账号:7799014011181732,目的记录id:7799014011181999";
+        Matcher m = pattern.matcher(str);
+        List<String> strs = new ArrayList<>();
+        /*while (m.find()) {
+            strs.add(m.group());
+            System.out.println(Optional.ofNullable(m.group()).orElse("空的"));
+        }*/
+
+        while (m.find()) {
+            strs.add(m.group());
         }
+        System.out.println(strs.get(0));
+        System.out.println(strs.get(1));
+        System.out.println(strs.size());
+        strs.forEach( s -> System.out.println("输出：" + s));
     }
 }
