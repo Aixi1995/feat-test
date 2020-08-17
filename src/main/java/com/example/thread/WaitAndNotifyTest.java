@@ -2,9 +2,7 @@ package com.example.thread;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
 
 /**
  * @author wang.zhiqiang
@@ -26,7 +24,9 @@ public class WaitAndNotifyTest {
     /**
      * 打印的线程池
      */
-    static ExecutorService executor = Executors.newFixedThreadPool(2);
+    static ExecutorService executor = new ThreadPoolExecutor(2, 5, 1L,
+            TimeUnit.SECONDS, new LinkedBlockingDeque<>(3), Executors.defaultThreadFactory(),
+            new ThreadPoolExecutor.AbortPolicy());
 
     public static void main(String[] args) {
         var str = "我是个大帅逼";
