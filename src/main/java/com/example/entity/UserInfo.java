@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * @author wang.zhiqiang
@@ -8,6 +9,7 @@ import lombok.Data;
  * @date 2020/7/29 13:28
  */
 @Data
+@Accessors(chain = true)
 public class UserInfo {
 
     public UserInfo() {
