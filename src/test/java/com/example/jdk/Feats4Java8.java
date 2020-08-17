@@ -1,6 +1,7 @@
 package com.example.jdk;
 
 import com.example.entity.UserInfo;
+import com.example.thread.WaitAndNotifyTest;
 import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
@@ -333,5 +334,33 @@ public class Feats4Java8 {
         System.out.println(strs.get(1));
         System.out.println(strs.size());
         strs.forEach( s -> System.out.println("输出：" + s));
+    }
+
+    /**
+     * junit 的@Test如果主线程退出了，子线程就不管了。所以要用join来阻塞一下。
+     * @throws InterruptedException
+     */
+    @Test
+    public void testWaitAndNotify() throws InterruptedException {
+        var str = "我是个大帅逼";
+        var strs = str.split("");
+        Thread t1 = new Thread( () -> {
+            try {
+                WaitAndNotifyTest.printStringA(strs);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread t2 = new Thread( () -> {
+            try {
+                WaitAndNotifyTest.printStringB(strs);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
     }
 }
