@@ -2,13 +2,11 @@ package com.example.jdk;
 
 import com.example.entity.UserInfo;
 import com.example.thread.WaitAndNotifyTest;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.jni.Local;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.script.ScriptEngineFactory;
-import javax.script.ScriptEngineManager;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -16,9 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
@@ -31,6 +27,7 @@ import java.util.stream.Stream;
  * @version 1.0
  * @date 2020/7/29 13:17
  */
+@Slf4j
 public class Feats4Java8 {
 
     /**
@@ -121,6 +118,29 @@ public class Feats4Java8 {
         var sumOfAllAge = Stream.of(list, _list).flatMap(Collection::stream).mapToInt(UserInfo::getAge).sum();
         Assert.assertEquals(200, sumOfAllAge);
     }
+
+    @Test
+    public void testCompletionService() throws InterruptedException, ExecutionException {
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        CompletionService<Integer> completionService = new ExecutorCompletionService<>(executorService);
+
+        completionService.submit( () -> 1);
+        completionService.submit( () -> 2);
+        completionService.submit( () -> 3);
+        completionService.submit( () -> 4);
+        completionService.submit( () -> {
+            try {
+                log.info(String.valueOf(1/0));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 5;
+        });
+        for (int i=0;i<5; i++) {
+            log.info(String.valueOf(completionService.take().get()));
+        }
+    }
+
 
     /**
      * 测试 CompletableFuture
@@ -344,7 +364,7 @@ public class Feats4Java8 {
     public void testWaitAndNotify() throws InterruptedException {
         var str = "我是个大帅逼";
         var strs = str.split("");
-        Thread t1 = new Thread( () -> {
+        /*Thread t1 = new Thread( () -> {
             try {
                 WaitAndNotifyTest.printStringA(strs);
             } catch (InterruptedException e) {
@@ -361,6 +381,6 @@ public class Feats4Java8 {
         t1.start();
         t2.start();
         t1.join();
-        t2.join();
+        t2.join();*/
     }
 }
