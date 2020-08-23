@@ -39,8 +39,11 @@ public class FunctionalProgrammingTest {
      */
     @Test
     public void testFunction() {
-        Function<Integer, String> function = (x, y) -> {
-
+        Function<Integer, String> function = x -> {
+            String s = String.valueOf(x);
+            log.info(s);
+            return s;
         };
+        function.apply(1);
     }
 }
