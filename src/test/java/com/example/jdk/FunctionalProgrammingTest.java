@@ -1,11 +1,11 @@
 package com.example.jdk;
 
+import com.example.entity.UserInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * @author wang.zhiqiang
@@ -21,7 +21,7 @@ public class FunctionalProgrammingTest {
      */
     @Test
     public void testConsumer() {
-        Consumer<Integer> consumer = c -> log.info(c.toString());
+        Consumer<Integer> consumer = c -> log.info(c + "Consumer, 消费型有一个入参无返回");
         consumer.accept(1);
     }
 
@@ -30,7 +30,7 @@ public class FunctionalProgrammingTest {
      */
     @Test
     public void testSupplier() {
-        Supplier<String> supplier = () -> "supplier没有入参，有一个返回值";
+        Supplier<String> supplier = () -> "Supplier, 供给型没有入参但有一个返回值";
         log.info(supplier.get());
     }
 
@@ -39,11 +39,27 @@ public class FunctionalProgrammingTest {
      */
     @Test
     public void testFunction() {
-        Function<Integer, String> function = x -> {
-            String s = String.valueOf(x);
-            log.info(s);
-            return s;
-        };
-        function.apply(1);
+        Function<Integer, String> f1 = String::valueOf;
+        f1.apply(1);
+        ToIntFunction<String> f2 = Integer::parseInt;//转换成int 相当于Function<T, Integer>
+        f2.applyAsInt("1");
+        BiFunction<String, String, Integer> f3 = (s1, s2) -> Integer.parseInt(s1) + Integer.parseInt(s2);
+        int i = f3.apply("1", "2");
+        log.info("f3: {}", i);
     }
+
+    /**
+     * 断言型的函数式编程，接受一个入参，返回true或者false
+     */
+    @Test
+    public void testPredict() {
+        Predicate<Integer> p1 = i -> i > 25;
+        Assertions.assertTrue(p1.test(26));
+        Predicate<UserInfo> p2 = userInfo -> userInfo.getAge() > 25;
+        UserInfo userInfo = new UserInfo().setAge(26).setName("wang");
+        Assertions.assertTrue(p2.test(userInfo));
+        BiPredicate<UserInfo, Integer> p3 = (u, age) -> u.getAge() > age;
+        Assertions.assertTrue(p3.test(userInfo, 24));
+    }
+
 }
