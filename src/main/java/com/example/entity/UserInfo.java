@@ -42,4 +42,84 @@ public class UserInfo {
 
     private String addr;
 
+    public static class UserInfoBuider {
+
+        private Long itemId;
+
+        private String name;
+
+        private String email;
+
+        private Integer age;
+
+        private Integer score;
+
+        private String addr;
+        UserInfo userInfo = new UserInfo();
+        public Long getItemId() {
+            return itemId;
+        }
+
+        public UserInfoBuider setItemId(Long itemId) {
+            userInfo.setItemId(itemId);
+            return this;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public UserInfoBuider setName(String name) {
+            userInfo.setName(name);
+            return this;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public UserInfoBuider setEmail(String email) {
+            userInfo.setEmail(email);
+            return this;
+        }
+
+        public Integer getAge() {
+            return age;
+        }
+
+        public UserInfoBuider setAge(Integer age) {
+            userInfo.setAge(age);
+            return this;
+        }
+
+        public Integer getScore() {
+            return score;
+        }
+
+        public UserInfoBuider setScore(Integer score) {
+            userInfo.setScore(score);
+            return this;
+        }
+
+        public String getAddr() {
+            return addr;
+        }
+
+        public void setAddr(String addr) {
+            this.addr = addr;
+        }
+
+        public UserInfo getUserInfo() {
+            return userInfo;
+        }
+
+        public void setUserInfo(UserInfo userInfo) {
+            this.userInfo = userInfo;
+        }
+
+        public UserInfo build() {
+            return userInfo;
+        }
+    }
+
 }

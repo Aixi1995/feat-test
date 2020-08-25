@@ -2,9 +2,15 @@ package com.example.jdk;
 
 import com.example.entity.UserInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.security.auth.callback.Callback;
+import javax.swing.text.DateFormatter;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.function.*;
 
 /**
@@ -62,4 +68,17 @@ public class FunctionalProgrammingTest {
         Assertions.assertTrue(p3.test(userInfo, 24));
     }
 
+    @Test
+    public void testFunctional() {
+        ThreadLocal<DateTimeFormatter> threadLocal = ThreadLocal.withInitial( () -> DateTimeFormatter.BASIC_ISO_DATE);
+        log.info(threadLocal.get().format(LocalDateTime.now()));
+        Runnable helloWorld=()-> System.out.println("hello world");
+        helloWorld.run();
+    }
+
+    @Test
+    public void testBuild() {
+        UserInfo userInfo = new UserInfo.UserInfoBuider().setItemId(1L).setName("wang").build();
+        log.info(userInfo.toString());
+    }
 }
