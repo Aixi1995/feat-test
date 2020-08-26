@@ -20,6 +20,7 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -88,6 +89,17 @@ public class Feats4Java8 {
         l.forEach(System.out::print);
     }
 
+    @Test
+    public void testFlatmap() {
+        int i = 0;
+        //Stream.of(Arrays.asList(1,2,3,4), Arrays.asList(5,6,7,8)).flatMap(Collection::stream).max(Integer::compareTo).ifPresent( x -> log.info(String.valueOf(x)));
+        Assert.assertEquals(10, addUp(Stream.of(1,2,3,4)));
+        Assert.assertEquals(10, IntStream.of(1,2,3,4).sum());
+    }
+
+    public int addUp(Stream<Integer> numbers) {
+        return numbers.reduce(Integer::sum).orElse(0);
+    }
 
     /**
      * map可以用于便利元素 <br>
@@ -382,5 +394,10 @@ public class Feats4Java8 {
         t2.start();
         t1.join();
         t2.join();*/
+    }
+
+    @Test
+    public void testInnerClass() {
+
     }
 }
