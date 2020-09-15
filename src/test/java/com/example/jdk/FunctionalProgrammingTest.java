@@ -11,6 +11,9 @@ import javax.swing.text.DateFormatter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.function.*;
 
 /**
@@ -81,4 +84,35 @@ public class FunctionalProgrammingTest {
         UserInfo userInfo = new UserInfo.UserInfoBuider().setItemId(1L).setName("wang").build();
         log.info(userInfo.toString());
     }
+
+    @Test
+    public void testIterator() {
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+        list1.add(1);list1.add(2);list1.add(3);list1.add(4);list1.add(5);
+        list2.add(4);list2.add(6);list2.add(5);list2.add(7);list2.add(8);
+        Iterator<Integer> i1 = list1.iterator();
+        while (i1.hasNext()) {
+            Integer a = i1.next();
+            Iterator<Integer> i2 = list2.iterator();
+            while (i2.hasNext()) {
+                Integer b = i2.next();
+                if (a.equals(b)) {
+                    i1.remove();
+                    i2.remove();
+                }
+            }
+        }
+        Iterator<Integer> i3 = list1.iterator();
+        while (i3.hasNext()) {
+            Integer a = i3.next();
+            System.out.println(a);
+        }
+        Iterator<Integer> i4 = list2.iterator();
+        while (i4.hasNext()) {
+            Integer b = i4.next();
+            System.out.println(b);
+        }
+    }
+
 }
