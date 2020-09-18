@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.security.auth.callback.Callback;
 import javax.swing.text.DateFormatter;
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.*;
 import java.util.function.*;
 
 /**
@@ -113,6 +115,42 @@ public class FunctionalProgrammingTest {
             Integer b = i4.next();
             System.out.println(b);
         }
+    }
+
+    public Executor taskExecutor() {
+        ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+        //核心线程数
+        threadPoolTaskExecutor.setCorePoolSize(2);
+        threadPoolTaskExecutor.setAllowCoreThreadTimeOut(true);
+        //最大线程数
+        threadPoolTaskExecutor.setMaxPoolSize(3);
+        //配置队列大小
+        threadPoolTaskExecutor.setQueueCapacity(5);
+        //配置线程池前缀
+        threadPoolTaskExecutor.setThreadNamePrefix("task-");
+        //拒绝策略
+        // 抛出异常策略 AbortPolicy
+        // 丢弃但不抛异常 DiscardPolicy
+        // 丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程） DiscardOldestPolicy
+        // 由调用线程处理该任务  CallerRunsPolicy
+        threadPoolTaskExecutor.setRejectedExecutionHandler((new ThreadPoolExecutor.CallerRunsPolicy()));
+        threadPoolTaskExecutor.initialize();
+        log.info("create the thread pool successfully, name-prefix : {}", threadPoolTaskExecutor.getThreadNamePrefix());
+        return threadPoolTaskExecutor;
+    }
+
+    @Test
+    public void testCompleteService() throws InterruptedException, ExecutionException {
+        ThreadPoolTaskExecutor taskExecutor = (ThreadPoolTaskExecutor) taskExecutor();
+        CompletionService<Integer> completionService = new ExecutorCompletionService<>(taskExecutor);
+        for (int i = 0; i < 20; i++) {
+            int finalI = i;
+            completionService.submit( () -> finalI);
+        }
+        for (int i = 0; i < 20; i++) {
+            log.info(String.valueOf(completionService.take().get()));
+        }
+        //Thread.sleep(5000);
     }
 
 }
