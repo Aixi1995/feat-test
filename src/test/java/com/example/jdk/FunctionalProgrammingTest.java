@@ -153,4 +153,21 @@ public class FunctionalProgrammingTest {
         //Thread.sleep(5000);
     }
 
+    @Test
+    public void testCompleteService1() throws InterruptedException, ExecutionException {
+        //ExecutorService executorService1 = Executors.newFixedThreadPool(6);
+        // newFixedThreadPool 没有指定的任务队列大小是Integer.MAX_VALUE 因此会无限堆积任务
+        ExecutorService executorService = new ThreadPoolExecutor(5, 5, 0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<Runnable>(3), Executors.defaultThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
+        CompletionService<Integer> completionService = new ExecutorCompletionService<>(executorService);
+        for (int i = 0; i < 20; i++) {
+            int finalI = i;
+            completionService.submit( () -> finalI);
+        }
+        for (int i = 0; i < 20; i++) {
+            log.info(String.valueOf(completionService.take().get()));
+        }
+        //Thread.sleep(5000);
+    }
+
 }
