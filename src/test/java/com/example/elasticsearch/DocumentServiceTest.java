@@ -24,7 +24,7 @@ public class DocumentServiceTest {
     @Test
     public void testIndexByJson() {
 
-        var json = """
+        var json = "";/*"""
                 {
                     "addr":"shanghai",
                     "age":25,
@@ -32,7 +32,7 @@ public class DocumentServiceTest {
                     "itemId":2,
                     "score":99.9
                 }
-                """;
+                """;*/
         var id = documentService.index(index, json);
         System.out.println(id);
     }

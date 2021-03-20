@@ -18,7 +18,7 @@ public class RestTemplateUtilTest {
 
     @Test
     public void testPost() throws Exception {
-        var json = """
+        var json = "";/*"""
                 {
                     "addr":"Shanghai",
                     "age":26,
@@ -26,7 +26,7 @@ public class RestTemplateUtilTest {
                     "itemId":6,
                     "score":100
                 }
-                """;
+                """;*/
         var response = RestTemplateUtil.post("http://127.0.0.1:9200/my_index_20200805/_doc", json, String.class, 1000, 3);
         System.out.println(response);
     }

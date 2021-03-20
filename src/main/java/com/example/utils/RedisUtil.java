@@ -245,7 +245,7 @@ public final class RedisUtil {
     }
 
     public long lGetListSize(String key) {
-        return Optional.ofNullable( redisTemplate.opsForList().size(key)).orElse(0L);
+        return Optional.ofNullable(redisTemplate.opsForList().size(key)).orElse(0L);
     }
 
     public boolean lSet(String key, Object value) {

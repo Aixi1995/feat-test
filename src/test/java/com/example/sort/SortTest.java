@@ -4,6 +4,8 @@ import com.example.algorithm.Sort;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 /**
@@ -29,5 +31,12 @@ public class SortTest {
     @Test
     public void testSortBySelection() {
         System.out.println(Arrays.toString(Sort.sortBySelection(nums)));
+    }
+
+
+    @Test
+    public void testLocalDateTime() {
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime.parse("0001-01-01 00:00:00", df);
     }
 }

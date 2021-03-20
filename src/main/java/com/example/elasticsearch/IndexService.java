@@ -89,7 +89,8 @@ public class IndexService {
      */
     public boolean putMappings(String... indices) {
         PutMappingRequest request = new PutMappingRequest(indices);
-        String mappings = """
+        String mappings ="";
+        /*String mappings = """
                 {
                     "properties":{
                         "addr": {
@@ -97,7 +98,7 @@ public class IndexService {
                         }
                     }
                 }
-                """;
+                """;*/
         request.source(mappings, XContentType.JSON);
         try {
             var response = client.indices().putMapping(request, RequestOptions.DEFAULT);
@@ -121,7 +122,7 @@ public class IndexService {
     public boolean createIndices(String index) {
         try {
             CreateIndexRequest request = new CreateIndexRequest(index);
-            String wholeSource = """
+            String wholeSource = "";/*"""
                 {
                     "settings": {
                         "number_of_shards":1,
@@ -147,7 +148,7 @@ public class IndexService {
                         }
                     }
                 }
-                """;
+                """;*/
             request.source(wholeSource, XContentType.JSON);
             var response = client.indices().create(request, RequestOptions.DEFAULT);
             return response.isAcknowledged();

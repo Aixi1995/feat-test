@@ -93,8 +93,8 @@ public class Feats4Java8 {
     public void testFlatmap() {
         int i = 0;
         //Stream.of(Arrays.asList(1,2,3,4), Arrays.asList(5,6,7,8)).flatMap(Collection::stream).max(Integer::compareTo).ifPresent( x -> log.info(String.valueOf(x)));
-        Assert.assertEquals(10, addUp(Stream.of(1,2,3,4)));
-        Assert.assertEquals(10, IntStream.of(1,2,3,4).sum());
+        Assert.assertEquals(10, addUp(Stream.of(1, 2, 3, 4)));
+        Assert.assertEquals(10, IntStream.of(1, 2, 3, 4).sum());
     }
 
     public int addUp(Stream<Integer> numbers) {
@@ -136,19 +136,19 @@ public class Feats4Java8 {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         CompletionService<Integer> completionService = new ExecutorCompletionService<>(executorService);
 
-        completionService.submit( () -> 1);
-        completionService.submit( () -> 2);
-        completionService.submit( () -> 3);
-        completionService.submit( () -> 4);
-        completionService.submit( () -> {
+        completionService.submit(() -> 1);
+        completionService.submit(() -> 2);
+        completionService.submit(() -> 3);
+        completionService.submit(() -> 4);
+        completionService.submit(() -> {
             try {
-                log.info(String.valueOf(1/0));
+                log.info(String.valueOf(1 / 0));
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return 5;
         });
-        for (int i=0;i<5; i++) {
+        for (int i = 0; i < 5; i++) {
             log.info(String.valueOf(completionService.take().get()));
         }
     }
@@ -222,6 +222,7 @@ public class Feats4Java8 {
         long end = System.currentTimeMillis();
         System.out.println("耗时：" + (end - start));
     }
+
     /**
      * 测试 LocalDate，在计算日期差的时候特别有用
      */
@@ -365,11 +366,26 @@ public class Feats4Java8 {
         System.out.println(strs.get(0));
         System.out.println(strs.get(1));
         System.out.println(strs.size());
-        strs.forEach( s -> System.out.println("输出：" + s));
+        strs.forEach(s -> System.out.println("输出：" + s));
+    }
+
+    private static final Pattern PATTERN_DATE = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
+
+    @Test
+    public void testPattern2() {
+        String str = "2020-09-24, 更新StartTime, 原StartTime为: 2019-11-26";
+        Matcher m = PATTERN_DATE.matcher(str);
+        String startDate = "";
+        while (m.find()) {
+            startDate = m.group();
+        }
+        log.info(startDate);
+
     }
 
     /**
      * junit 的@Test如果主线程退出了，子线程就不管了。所以要用join来阻塞一下。
+     *
      * @throws InterruptedException
      */
     @Test
@@ -399,5 +415,12 @@ public class Feats4Java8 {
     @Test
     public void testInnerClass() {
 
+    }
+
+    @Test
+    public void testStream4UseTwice() {
+        Stream<Integer> s = Stream.of(1, 2, 3, 4, 5, 6, 7, 8);
+        Assert.assertTrue(s.anyMatch( i -> i == 1));
+        Assert.assertTrue(s.anyMatch( i -> i == 2));
     }
 }

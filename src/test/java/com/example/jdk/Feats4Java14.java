@@ -20,9 +20,9 @@ public class Feats4Java14 {
     @Test
     public void testInstanceOf() {
         Object str = "hello world";
-        if (str instanceof String _str) {
+        /*if (str instanceof _str) {
             Assert.assertTrue(_str.contains("hello"));
-        }
+        }*/
     }
 
     // recode...

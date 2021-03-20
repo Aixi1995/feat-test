@@ -12,6 +12,7 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.SmUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.crypto.digest.SM3;
+import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.example.entity.UserInfo;
@@ -148,5 +149,11 @@ public class HutoolTest {
     @Test
     public void testDigestUtil() {
 
+    }
+
+    @Test
+    public void testHttpUtil() {
+        String result1= HttpUtil.get("https://www.baidu.com");
+        log.info(result1);
     }
 }

@@ -21,6 +21,6 @@ public class ListNode<T> {
 
     @Override
     public String toString() {
-        return (this.getT() + "-" +(this.getNext() != null ? this.getNext().toString() : "NULL"));
+        return (this.getT() + "-" + (this.getNext() != null ? this.getNext().toString() : "NULL"));
     }
 }

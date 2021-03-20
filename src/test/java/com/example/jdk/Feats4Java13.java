@@ -14,11 +14,11 @@ public class Feats4Java13 {
      */
     @Test
     public void testMultiLineTextBlocks() {
-        var str = """
+        var str =""; /*"""
                 1
                 2
                 3
-                """;
+                """;*/
         System.out.println(str);
     }
 
