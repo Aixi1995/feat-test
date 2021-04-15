@@ -83,8 +83,8 @@ public class FunctionalProgrammingTest {
 
     @Test
     public void testBuild() {
-        UserInfo userInfo = new UserInfo.UserInfoBuider().setItemId(1L).setName("wang").build();
-        log.info(userInfo.toString());
+        /*UserInfo userInfo = new UserInfo.UserInfoBuider().setItemId(1L).setName("wang").build();
+        log.info(userInfo.toString());*/
     }
 
     @Test

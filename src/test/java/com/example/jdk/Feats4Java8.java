@@ -45,7 +45,7 @@ public class Feats4Java8 {
         var emptyStr = Optional.ofNullable(null).orElse("");
         Assert.assertEquals("", emptyStr);
         var user = new UserInfo();
-        user.setItemId(1L);
+        //user.setItemId(1L);
         user.setName("aixi");
         user.setAge(25);
         Optional.ofNullable(user).ifPresent(u -> {
@@ -107,7 +107,7 @@ public class Feats4Java8 {
      */
     @Test
     public void testMapAndFlatMap() {
-        var user1 = new UserInfo(1L, "wang1", "wang1@163.com", 27);
+        /*var user1 = new UserInfo(1L, "wang1", "wang1@163.com", 27);
         var user2 = new UserInfo(1L, "wang1", "wang1@163.com", 24);
         var user3 = new UserInfo(1L, "wang1", "wang1@163.com", 26);
         var user4 = new UserInfo(1L, "wang1", "wang1@163.com", 23);
@@ -128,7 +128,7 @@ public class Feats4Java8 {
         list.add(user8);
         list.add(user9);
         var sumOfAllAge = Stream.of(list, _list).flatMap(Collection::stream).mapToInt(UserInfo::getAge).sum();
-        Assert.assertEquals(200, sumOfAllAge);
+        Assert.assertEquals(200, sumOfAllAge);*/
     }
 
     @Test
@@ -422,5 +422,11 @@ public class Feats4Java8 {
         Stream<Integer> s = Stream.of(1, 2, 3, 4, 5, 6, 7, 8);
         Assert.assertTrue(s.anyMatch( i -> i == 1));
         Assert.assertTrue(s.anyMatch( i -> i == 2));
+    }
+
+    @Test
+    public void testAssert() {
+        assert false:"测试assert";
+        log.info("assert");
     }
 }

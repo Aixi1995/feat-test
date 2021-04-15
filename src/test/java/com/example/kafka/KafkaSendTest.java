@@ -31,8 +31,8 @@ public class KafkaSendTest {
     @Test
     public void testSend() {
         for (int i = 0; i < 10; i++) {
-            UserInfo u = new UserInfo().setItemId((long) i).setName("wang" + i).setAge(20+i).setScore(100);
-            kafkaProducer.send(u);
+            /*UserInfo u = new UserInfo().setItemId((long) i).setName("wang" + i).setAge(20+i).setScore(100);
+            kafkaProducer.send(u);*/
         }
     }
 

@@ -23,7 +23,7 @@ public class ExcelUtilTest {
 
     @Test
     public void testWrite() throws FileNotFoundException {
-        String filePath = "D:\\userInfo_write.xlsx";
+        /*String filePath = "D:\\userInfo_write.xlsx";
         var user1 = new UserInfo(1L, "wang1", "wang1@163.com", 27);
         var user2 = new UserInfo(1L, "wang1", "wang1@163.com", 24);
         var user3 = new UserInfo(1L, "wang1", "wang1@163.com", 26);
@@ -33,6 +33,6 @@ public class ExcelUtilTest {
         list.add(user2);
         list.add(user3);
         list.add(user4);
-        ExcelUtils.write(filePath, UserInfo.class, list);
+        ExcelUtils.write(filePath, UserInfo.class, list);*/
     }
 }

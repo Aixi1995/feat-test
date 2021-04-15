@@ -61,7 +61,7 @@ public class HutoolTest {
 
     @Test
     public void testBeanUtil() {
-        UserInfo userInfo = new UserInfo().setName("wang.zhiqiang").setAge(26)
+        /*UserInfo userInfo = new UserInfo().setName("wang.zhiqiang").setAge(26)
                 .setEmail("123@qq.com").setScore(100)
                 .setAddr("shanghai").setItemId(1L);
         // bean to map
@@ -73,7 +73,7 @@ public class HutoolTest {
         // copy bean properties
         UserInfo userInfo2 = new UserInfo();
         BeanUtil.copyProperties(userInfo1, userInfo2);
-        log.info(userInfo2.toString());
+        log.info(userInfo2.toString());*/
     }
 
     @Test
@@ -122,10 +122,10 @@ public class HutoolTest {
 
     @Test
     public void testJSONUtil() {
-        UserInfo userInfo = new UserInfo().setName("wang.zhiqiang").setAge(26)
+        /*UserInfo userInfo = new UserInfo().setName("wang.zhiqiang").setAge(26)
                 .setEmail("123@qq.com").setScore(100)
                 .setAddr("shanghai").setItemId(1L);
-        log.info(JSONUtil.parse(userInfo).toJSONString(2));
+        log.info(JSONUtil.parse(userInfo).toJSONString(2));*/
     }
 
     @Test
